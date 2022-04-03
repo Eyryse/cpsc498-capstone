@@ -1,0 +1,10 @@
+const String CourseRoute = '/course';
+const String CourseCreateRoute = '/create';
+const String HomeRoute = '/home';
+const String LibraryRoute = '/library';
+const String LoginRoute = '/login';
+const String RegisterRoute = '/register';
+const String SettingsRoute = '/settings';
+const String TestRoute = '/test';
+const String UserProfileRoute = '/user';
+const String ErrorRoute = '/error';
