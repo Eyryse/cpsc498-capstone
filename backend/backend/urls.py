@@ -16,10 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
+from django.views.static import serve
+from django.shortcuts import redirect
 
 from graphene_django.views import GraphQLView
 
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FLUTTER_WEB_APP = os.path.join(BASE_DIR, 'web')
+
+def flutter_redirect(request, resource):
+	return serve(request, resource, FLUTTER_WEB_APP)
+
 urlpatterns = [
+    path('', lambda req: redirect('/web/')),
     path('admin/', admin.site.urls),
     path('graphql', csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    path('web/', lambda r: flutter_redirect(r, 'index.html')),
+    path('web/<path:resource>', flutter_redirect),
 ]

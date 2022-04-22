@@ -433,7 +433,7 @@ class _CourseInformationState extends State<CourseInformation> {
 											onPressed: () {
 												Clipboard.setData(
 													ClipboardData(
-														text: 'localhost:36097/#${ModalRoute.of(context)?.settings.name}',
+														text: '127.0.0.1:8000/web/#${ModalRoute.of(context)?.settings.name}',
 													)
 												).then((_) {
 													ScaffoldMessenger.of(context).showSnackBar(

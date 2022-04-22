@@ -75,10 +75,11 @@ String forgotPassword = r"""
 """;
 
 String createCourse = r"""
-	mutation CreateCourse($name: String!, $description: String!) {
+	mutation CreateCourse($name: String!, $description: String!, $privacyType: String!) {
 		createCourse(courseData: {
 			name: $name
 			description: $description
+			privacyType: $privacyType
 		})
 		{
 			url {

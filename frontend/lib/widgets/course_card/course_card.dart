@@ -35,9 +35,9 @@ class _CourseCardState extends State<CourseCard> {
 	}
 	
 	String _getName() {
-		var id = widget.id;
-		if (id != null) {
-			return id;
+		var name = widget.name;
+		if (name != null) {
+			return name;
 		}
 		return '';
 	}
