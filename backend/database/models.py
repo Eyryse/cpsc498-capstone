@@ -8,6 +8,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	username = models.CharField(max_length=50)
 	email = models.EmailField(unique=True)
 	date_joined = models.DateTimeField(default=timezone.now, editable=False)
+	description = models.TextField()
 	
 	objects = UserManager()
 	
@@ -28,6 +29,8 @@ class Course(models.Model):
 	privacy_type = models.CharField(choices=PRIVACY_TYPE, max_length=50)
 	name = models.TextField()
 	description = models.TextField()
+	creation_date = models.DateTimeField(default=timezone.now, editable=False)
+	last_update = models.DateTimeField(default=timezone.now, editable=True)
 	
 class FavoriteCourse(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorited')

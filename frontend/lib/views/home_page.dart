@@ -22,7 +22,32 @@ class _HomePageState extends State<HomePage> {
 					SizedBox(
 						width: MediaQuery.of(context).size.width * (1000/1280),
 						height: MediaQuery.of(context).size.height * (435/720),
-						child: Card(),
+						child: Card(
+							child: Padding(
+								padding: EdgeInsets.all(10.0),
+								child: Column(
+									children: <Widget>[ /*
+										Spacer(),
+										Text(
+											'Learn online in a format that replicates academic environments',
+											style: Theme.of(context).textTheme.headlineLarge,
+										),
+										Spacer(),
+										Text(
+											'Avoid learning plateaus by being tested on material and get immediate feedback',
+											style: Theme.of(context).textTheme.headlineMedium,
+										),
+										Spacer(),
+										Text(
+											'Automatic pacing established with spaced repetition',
+											style: Theme.of(context).textTheme.headlineMedium,
+										),
+										*/
+										Spacer(),
+									],
+								)
+							),
+						),
 					),
 					Spacer(),
 					Row(

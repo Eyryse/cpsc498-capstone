@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:format/format.dart';
+import 'package:graphql/client.dart';
 
 import 'package:frontend/routing/paths.dart';
+import 'package:frontend/queries/api_query.dart';
+import 'package:frontend/utils/graphql_client.dart';
 
 enum AccountOptions { settings, profile }
 
@@ -27,6 +31,7 @@ class _AccountButtonState extends State<AccountButton> {
 						title: Text('Profile'),
 					),
 				),
+				/*
 				PopupMenuItem(
 					value: AccountOptions.settings,
 					child: ListTile(
@@ -34,13 +39,41 @@ class _AccountButtonState extends State<AccountButton> {
 						title: Text('Settings'),
 					),
 				),
+				*/
 			],
-			onSelected: (value) => {
+			onSelected: (value) {
 				if (value == AccountOptions.settings) {
-					Navigator.pushNamed(context, SettingsRoute)
+					Navigator.pushNamed(context, SettingsRoute);
 				}
 				else if (value == AccountOptions.profile) {
-					Navigator.pushNamed(context, UserProfileRoute)
+					final QueryOptions options = QueryOptions(
+						document: gql(whoami)
+					);
+					final GraphQLClient client = gqlclient();
+					final Future<QueryResult> result = client.query(options);
+					
+					result.then((info) {
+						if (info.hasException) {
+							print(info.exception.toString());
+							return;
+						}
+						
+						if (info.data?['whoami'] != null) {
+							Map<String, String> queryParams = {
+								'id': info.data?['whoami']['id'],
+							};
+							Navigator.pushNamed(
+								context,
+								'{}?{}'.format(
+									UserProfileRoute,
+									Uri(queryParameters: queryParams).query,
+								)
+							);
+						}
+						else {
+							Navigator.pushNamed(context, HomeRoute);
+						}
+					});
 				}
 			},
 		);

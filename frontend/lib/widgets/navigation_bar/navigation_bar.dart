@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scaled_size/scaled_size.dart';
 
 import 'account_button.dart';
 import 'course_button.dart';
@@ -21,7 +22,7 @@ class NavBar extends StatelessWidget {
 					mainAxisAlignment: MainAxisAlignment.spaceBetween,
 					children: <Widget>[
 						Container(
-							width: MediaQuery.of(context).size.width * (1/6),
+							width: ((1/6) * 100).vw,
 							child: IconButton(
 								icon: Icon(Icons.home),
 								onPressed: () {
@@ -31,7 +32,7 @@ class NavBar extends StatelessWidget {
 						),
 						Center(
 							child: Container(
-								width: MediaQuery.of(context).size.width * (3/6),
+								width: ((3/6) * 100).vw,
 								child: SearchBar(),
 							),
 						),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:format/format.dart';
 
 import 'package:frontend/routing/paths.dart';
+import 'package:frontend/widgets/crud_course/course/create_course.dart';
 
-enum CourseOptions { bookmark, favorite, enroll, create }
+enum CourseOptions { watch, favorite, enroll, create }
 
 class CourseButton extends StatefulWidget {
 	const CourseButton({Key? key}) : super(key: key);
@@ -28,10 +30,10 @@ class _CourseButtonState extends State<CourseButton> {
 					),
 				),
 				PopupMenuItem(
-					value: CourseOptions.bookmark,
+					value: CourseOptions.watch,
 					child: ListTile(
 						leading: Icon(Icons.bookmarks),
-						title: Text('Bookmarked Courses'),
+						title: Text('Watched Courses'),
 					),
 				),
 				PopupMenuItem(
@@ -49,18 +51,45 @@ class _CourseButtonState extends State<CourseButton> {
 					),
 				),
 			],
-			onSelected: (value) => {
+			onSelected: (value) {
 				if (value == CourseOptions.enroll) {
-					Navigator.pushNamed(context, LibraryRoute)
+					Map<String, String> queryParams = {
+						'type': 'enrolled',
+					};
+					Navigator.pushNamed(
+						context,
+						'{}?{}'.format(
+							LibraryRoute,
+							Uri(queryParameters: queryParams).query,
+						)
+					);
 				}
-				else if (value == CourseOptions.bookmark) {
-					Navigator.pushNamed(context, LibraryRoute)
+				else if (value == CourseOptions.watch) {
+					Map<String, String> queryParams = {
+						'type': 'watched',
+					};
+					Navigator.pushNamed(
+						context,
+						'{}?{}'.format(
+							LibraryRoute,
+							Uri(queryParameters: queryParams).query,
+						)
+					);
 				}
 				else if (value == CourseOptions.favorite) {
-					Navigator.pushNamed(context, LibraryRoute)
+					Map<String, String> queryParams = {
+						'type': 'favorited',
+					};
+					Navigator.pushNamed(
+						context,
+						'{}?{}'.format(
+							LibraryRoute,
+							Uri(queryParameters: queryParams).query,
+						)
+					);
 				}
 				else if (value == CourseOptions.create) {
-					Navigator.pushNamed(context, CourseCreateRoute)
+					create_course_dialog(context);
 				}
 			},
 		);

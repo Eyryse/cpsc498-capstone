@@ -21,6 +21,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+PRODUCTION = False
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -29,9 +30,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-87@8sy7o5m&+_uncdajr!3wjvdg0)yd*&&#o2^f0z1hs@zjf2#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if PRODUCTION:
+	DEBUG = False
+else:
+	DEBUG = True
 
-ALLOWED_HOSTS = []
+if PRODUCTION:
+	ALLOWED_HOSTS = ['*']
+else:
+	ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Security settings
 
@@ -51,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'database',
     'graphene_django',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +69,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = [
+	'http://127.0.0.1',
+	'http://localhost',
+	'https://127.0.0.1',
+	'https://localhost',
 ]
 
 GRAPHENE = {

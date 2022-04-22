@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:frontend/routing/paths.dart';
+import 'package:frontend/utils/argument_parse.dart';
 import 'package:frontend/views/course_page.dart';
-import 'package:frontend/views/course_creation_page.dart';
 import 'package:frontend/views/error_page.dart';
 import 'package:frontend/views/home_page.dart';
 import 'package:frontend/views/library_page.dart';
@@ -21,20 +21,15 @@ class RouteGenerator {
 	}
 
 	static Route<dynamic> generateRoute(RouteSettings settings) {
-		final settingsSplit = settings.name == null ? ['', ''] : settings.name!.split('?');
-		final name = settingsSplit[0];
-		final args = (settingsSplit.length <= 1 ? Uri(query: '') : Uri(query: settingsSplit[1])).queryParameters;
+		final extraction = extractFromRoute(settings);
 		
-		switch (name) {
+		switch (extraction.name) {
 			case CourseRoute:
 				return MaterialPageRoute(
 					settings: settings,
-					builder: (context) => const CoursePage()
-				);
-			case CourseCreateRoute:
-				return MaterialPageRoute(
-					settings: settings,
-					builder: (context) => const CourseCreationPage()
+					builder: (context) => CoursePage(
+						arguments: extraction.args,
+					)
 				);
 			case HomeRoute:
 				return MaterialPageRoute(
@@ -44,7 +39,9 @@ class RouteGenerator {
 			case LibraryRoute:
 				return MaterialPageRoute(
 					settings: settings,
-					builder: (context) => const LibraryPage()
+					builder: (context) => LibraryPage(
+						arguments: extraction.args,
+					)
 				);
 			case LoginRoute:
 				return MaterialPageRoute(
@@ -64,12 +61,16 @@ class RouteGenerator {
 			case TestRoute:
 				return MaterialPageRoute(
 					settings: settings,
-					builder: (context) => const TestPage()
+					builder: (context) => TestPage(
+						arguments: extraction.args,
+					)
 				);
 			case UserProfileRoute:
 				return MaterialPageRoute(
 					settings: settings,
-					builder: (context) => const UserProfilePage()
+					builder: (context) => UserProfilePage(
+						arguments: extraction.args,
+					)
 				);
 			default:
 				return _ErrorRoute(settings);

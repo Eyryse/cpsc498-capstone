@@ -1,5 +1,4 @@
 const String CourseRoute = '/course';
-const String CourseCreateRoute = '/create';
 const String HomeRoute = '/home';
 const String LibraryRoute = '/library';
 const String LoginRoute = '/login';
