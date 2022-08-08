@@ -1,5 +1,9 @@
 # capstone-project-s22
 
+***Note: It has been decided to restart this project from scratch using Golang for the backend, which is why the older version of it is now publicly available.***
+
+**This version of the project did not contain the Dockerfiles, as Docker support was added after the semester had ended due to time constraints.**
+
 # Test the project
 
 - Backend
